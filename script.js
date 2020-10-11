@@ -1,3 +1,10 @@
+// create a table of strengths and weaknesses
+const handsTable = {
+  rock: { weakTo: "paper", strongTo: "scissors" },
+  paper: { weakTo: "scissors", strongTo: "rock" },
+  scissors: { weakTo: "rock", strongTo: "paper" },
+};
+
 function computerPlay() {
   // return a random number between 0 and 2, i.e. 0, 1, 2
   var outcome = Math.floor(Math.random() * 3);
@@ -17,27 +24,56 @@ function checkInput(inputData) {
   inputData.toLowerCase();
 
   if (
-    inputData !== "rock" ||
-    inputData !== "paper" ||
-    inputData !== "scissors"
+    inputData === "rock" ||
+    inputData === "paper" ||
+    inputData === "scissors"
   ) {
-    return false;
-  } else {
     return true;
+  } else {
+    return false;
   }
 }
 
 function personPlay() {
   var input = prompt("rock, paper, scissors?");
+
   if (checkInput(input)) {
     return input;
   } else {
     alert("Please enter either 'rock', 'paper' or 'scissors'");
     personPlay();
   }
-
-  return output;
 }
 
-console.log("computer output is: " + computerPlay());
-console.log("person output is: " + personPlay());
+function playRound(personHand, computerHand) {
+  if (handsTable[personHand].strongTo === computerHand) {
+    console.log("You win! " + personHand + " wins " + computerHand);
+    return "win";
+  }
+
+  if (handsTable[personHand].weakTo === computerHand) {
+    console.log("Computer wins! " + computerHand + " wins " + personHand);
+    return "lose";
+  }
+}
+
+function game() {
+  var myHand = personPlay();
+  var enemyHand = computerPlay();
+  var myScore = 0;
+  var enemyScore = 0;
+  var gamesPlayed = 0;
+
+  var matchResult = playRound(myHand, enemyHand);
+  if (matchResult == "win") {
+    myScore += 1;
+  } else {
+    enemyScore += 1;
+  }
+  gamesPlayed += 1;
+  console.log("match result: " + matchResult);
+
+  //  switch
+}
+
+game();
