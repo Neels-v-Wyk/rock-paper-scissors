@@ -49,31 +49,43 @@ function playRound(personHand, computerHand) {
   if (handsTable[personHand].strongTo === computerHand) {
     console.log("You win! " + personHand + " wins " + computerHand);
     return "win";
-  }
-
-  if (handsTable[personHand].weakTo === computerHand) {
+  } else if (handsTable[personHand].weakTo === computerHand) {
     console.log("Computer wins! " + computerHand + " wins " + personHand);
     return "lose";
+  } else {
+    return "tie";
   }
 }
 
 function game() {
   var myHand = personPlay();
   var enemyHand = computerPlay();
-  var myScore = 0;
-  var enemyScore = 0;
-  var gamesPlayed = 0;
+
+  // initialize variable if this is the first time in the loop
+  if (typeof gamesPlayed == "undefined") {
+    gamesPlayed = 0;
+    myScore = 0;
+    enemyScore = 0;
+  }
 
   var matchResult = playRound(myHand, enemyHand);
   if (matchResult == "win") {
     myScore += 1;
-  } else {
+  } else if (matchResult == "lose") {
     enemyScore += 1;
   }
+
   gamesPlayed += 1;
   console.log("match result: " + matchResult);
 
   //  switch
+
+  if (gamesPlayed != 5) {
+    game();
+  }
+
+  return [myScore, enemyScore];
 }
 
-game();
+result = game();
+console.log(result);
