@@ -94,4 +94,4 @@ hands.forEach((key) => {
 });
 
 // result = game();
-console.log(result);
+// console.log(result);
