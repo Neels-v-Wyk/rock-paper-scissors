@@ -78,14 +78,20 @@ function game() {
   gamesPlayed += 1;
   console.log("match result: " + matchResult);
 
-  //  switch
-
-  if (gamesPlayed != 5) {
+  if (gamesPlayed != -1) {
     game();
   }
 
   return [myScore, enemyScore];
 }
+
+var hands = document.querySelectorAll(".hand");
+
+hands.forEach((key) => {
+  key.addEventListener("click", () => {
+    console.log("Button clicked.");
+  });
+});
 
 result = game();
 console.log(result);
