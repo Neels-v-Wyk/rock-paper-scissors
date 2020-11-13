@@ -55,24 +55,31 @@ function game(myHand) {
   var matchResult = playRound(myHand, enemyHand);
   if (matchResult[0] == "Win!") {
     myScore += 1;
+    gamesPlayed += 1;
   } else if (matchResult[0] == "Lose") {
     enemyScore += 1;
+    gamesPlayed += 1;
   }
 
   var scoreboard;
   scoreboard = document.querySelector(".scoreboard");
   // add a "x won y" type of element to create a "scoreboard"
   var content = document.createElement("div");
+  content.style.justifyItems = "center";
+  content.style.display = "flex";
+  content.style.justifyContent = "center";
 
   var myHandResult = document.createElement("img");
   myHandResult.setAttribute("src", handToImage(matchResult[1]));
   myHandResult.setAttribute("width", "100px");
-  myHandResult.style.paddingLeft = "1rem";
+  myHandResult.style.justifySelf = "right";
   content.appendChild(myHandResult);
 
   var resultMessage = document.createElement("p");
   resultMessage.classList.add("message");
   resultMessage.innerText = matchResult[0];
+  resultMessage.style.minWidth = "200px";
+  resultMessage.style.padding = "10px";
   content.appendChild(resultMessage);
 
   var enemyHandResult = document.createElement("img");
@@ -80,12 +87,17 @@ function game(myHand) {
   enemyHandResult.setAttribute("width", "100px");
   content.appendChild(enemyHandResult);
 
-  content.style.display = "grid";
-  content.style.gridAutoFlow = "column";
-
   scoreboard.insertBefore(content, scoreboard.firstChild);
 
-  gamesPlayed += 1;
+  var round = document.querySelectorAll(".round");
+  for (var i = 0; i < round.length; i++) {
+    round[i].innerHTML = "Round: " + gamesPlayed;
+  }
+
+  var score = document.querySelectorAll(".score");
+  for (var i = 0; i < score.length; i++) {
+    score[i].innerHTML = "Score: " + myScore;
+  }
 
   // if (gamesPlayed != 5) {
   //   game();
@@ -96,8 +108,6 @@ function game(myHand) {
 
 function unpop(e) {
   if (e.propertyName !== "transform") return;
-
-  console.log(this);
   this.classList.remove("pop");
 }
 
@@ -105,7 +115,9 @@ var hands = document.querySelectorAll(".hand");
 
 hands.forEach((hand) => {
   hand.addEventListener("click", (e) => {
+    // play one game on click
     game(e.target.alt);
+
     if (document.querySelector(".removeme")) {
       document.querySelector(".removeme").remove();
     }
