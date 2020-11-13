@@ -1,19 +1,19 @@
 body {
+  align-items: center;
+  justify-content: center;
   background-color: #fff3c4;
 }
 
 .hands {
-  margin: auto;
-  margin-top: 60px;
-  width: 50%;
-  padding: 10px;
-  display: grid;
-  align-content: space-evenly;
-  grid-template-columns: auto auto auto;
-  grid-gap: 10px;
+  margin-top: 30px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
 }
 
 .hand {
+  padding: 50px;
   width: 200px;
   height: 200px;
   transition: 0.2s;
@@ -23,7 +23,21 @@ body {
   transform: scale(1.1);
 }
 
+.message {
+  text-align: center;
+  margin: 20px;
+  font-family: "Varela Round", sans-serif;
+  font-size: 50px;
+  color: #ef9645;
+}
+
 .scale {
   transform: scale(1.2);
   transition: 0.1s;
+}
+
+.scoreboard {
+  max-height: 500px;
+  overflow: hidden;
+  background-color: linear-gradient(to bottom, transparent 0%, black 100%);
 }

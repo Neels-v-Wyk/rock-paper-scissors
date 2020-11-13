@@ -1,5 +1,5 @@
 // create a table of strengths and weaknesses
-const handsTable = {
+var handsTable = {
   rock: { weakTo: "paper", strongTo: "scissors" },
   paper: { weakTo: "scissors", strongTo: "rock" },
   scissors: { weakTo: "rock", strongTo: "paper" },
@@ -19,47 +19,31 @@ function computerPlay() {
   }
 }
 
-// create an input validator to check whether or not the person entered meaningful data
-function checkInput(inputData) {
-  inputData.toLowerCase();
-
-  if (
-    inputData === "rock" ||
-    inputData === "paper" ||
-    inputData === "scissors"
-  ) {
-    return true;
-  } else {
-    return false;
-  }
-}
-
-function personPlay() {
-  var input = prompt("rock, paper, scissors?");
-
-  if (checkInput(input)) {
-    return input;
-  } else {
-    alert("Please enter either 'rock', 'paper' or 'scissors'");
-    personPlay();
-  }
-}
-
 function playRound(personHand, computerHand) {
   if (handsTable[personHand].strongTo === computerHand) {
-    console.log("You win! " + personHand + " wins " + computerHand);
-    return "win";
+    return ["Win!", personHand, computerHand];
   } else if (handsTable[personHand].weakTo === computerHand) {
-    console.log("Computer wins! " + computerHand + " wins " + personHand);
-    return "lose";
+    return ["Lose", personHand, computerHand];
   } else {
-    return "tie";
+    return ["Tie", personHand, computerHand];
   }
 }
 
-function game() {
-  var myHand = personPlay();
+function handToImage(hand) {
+  // return a uri of the image of a hand
+  switch (hand) {
+    case "rock":
+      return "https://cdn.jsdelivr.net/npm/twemoji@11.0.1/2/svg/270a.svg";
+    case "paper":
+      return "https://cdn.jsdelivr.net/npm/twemoji@11.0.1/2/svg/270b.svg";
+    case "scissors":
+      return "https://cdn.jsdelivr.net/npm/twemoji@11.0.1/2/svg/270c.svg";
+  }
+}
+
+function game(myHand) {
   var enemyHand = computerPlay();
+  const message = document.querySelector(".message");
 
   // initialize variable if this is the first time in the loop
   if (typeof gamesPlayed == "undefined") {
@@ -69,27 +53,55 @@ function game() {
   }
 
   var matchResult = playRound(myHand, enemyHand);
-  if (matchResult == "win") {
+  if (matchResult[0] == "Win!") {
     myScore += 1;
-  } else if (matchResult == "lose") {
+  } else if (matchResult[0] == "Lose") {
     enemyScore += 1;
   }
 
+  var scoreboard;
+  scoreboard = document.querySelector(".scoreboard");
+  // add a "x won y" type of element to create a "scoreboard"
+  var content = document.createElement("div");
+
+  var myHandResult = document.createElement("img");
+  myHandResult.setAttribute("src", handToImage(matchResult[1]));
+  myHandResult.setAttribute("width", "100px");
+  myHandResult.style.paddingLeft = "1rem";
+  content.appendChild(myHandResult);
+
+  var resultMessage = document.createElement("p");
+  resultMessage.classList.add("message");
+  resultMessage.innerText = matchResult[0];
+  content.appendChild(resultMessage);
+
+  var enemyHandResult = document.createElement("img");
+  enemyHandResult.setAttribute("src", handToImage(matchResult[2]));
+  enemyHandResult.setAttribute("width", "100px");
+  content.appendChild(enemyHandResult);
+
+  content.style.display = "grid";
+  content.style.gridAutoFlow = "column";
+
+  scoreboard.insertBefore(content, scoreboard.firstChild);
+
   gamesPlayed += 1;
-  console.log("match result: " + matchResult);
 
-  if (gamesPlayed != -1) {
-    game();
-  }
+  // if (gamesPlayed != 5) {
+  //   game();
+  // }
 
-  return [myScore, enemyScore];
+  // return [myScore, enemyScore];
 }
 
 var hands = document.querySelectorAll(".hand");
 
 hands.forEach((key) => {
-  key.addEventListener("click", () => {
-    console.log("Button clicked.");
+  key.addEventListener("click", (e) => {
+    game(e.target.alt);
+    try {
+      document.querySelector(".removeme").remove();
+    } catch (err) {}
   });
 });
 
