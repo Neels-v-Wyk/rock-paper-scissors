@@ -71,20 +71,20 @@ function game(myHand) {
 
   var myHandResult = document.createElement("img");
   myHandResult.setAttribute("src", handToImage(matchResult[1]));
-  myHandResult.setAttribute("width", "100px");
+  myHandResult.setAttribute("width", "100vw");
   myHandResult.style.justifySelf = "right";
   content.appendChild(myHandResult);
 
   var resultMessage = document.createElement("p");
   resultMessage.classList.add("message");
   resultMessage.innerText = matchResult[0];
-  resultMessage.style.minWidth = "200px";
+  resultMessage.style.minWidth = "20vw";
   resultMessage.style.padding = "10px";
   content.appendChild(resultMessage);
 
   var enemyHandResult = document.createElement("img");
   enemyHandResult.setAttribute("src", handToImage(matchResult[2]));
-  enemyHandResult.setAttribute("width", "100px");
+  enemyHandResult.setAttribute("width", "100vw");
   content.appendChild(enemyHandResult);
 
   scoreboard.insertBefore(content, scoreboard.firstChild);
