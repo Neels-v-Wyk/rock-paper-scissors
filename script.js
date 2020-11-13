@@ -65,26 +65,23 @@ function game(myHand) {
   scoreboard = document.querySelector(".scoreboard");
   // add a "x won y" type of element to create a "scoreboard"
   var content = document.createElement("div");
-  content.style.justifyItems = "center";
-  content.style.display = "flex";
-  content.style.justifyContent = "center";
+  content.classList.add("scoreboard-content");
 
   var myHandResult = document.createElement("img");
   myHandResult.setAttribute("src", handToImage(matchResult[1]));
-  myHandResult.setAttribute("width", "100vw");
-  myHandResult.style.justifySelf = "right";
+  myHandResult.classList.add("resulthand-left");
   content.appendChild(myHandResult);
 
   var resultMessage = document.createElement("p");
   resultMessage.classList.add("message");
   resultMessage.innerText = matchResult[0];
-  resultMessage.style.minWidth = "20vw";
-  resultMessage.style.padding = "10px";
+  resultMessage.classList.add("scoreboard-message");
+
   content.appendChild(resultMessage);
 
   var enemyHandResult = document.createElement("img");
   enemyHandResult.setAttribute("src", handToImage(matchResult[2]));
-  enemyHandResult.setAttribute("width", "100vw");
+  enemyHandResult.classList.add("resulthand-right");
   content.appendChild(enemyHandResult);
 
   scoreboard.insertBefore(content, scoreboard.firstChild);

@@ -14,7 +14,6 @@ body {
 }
 
 .hand {
-  padding: 0vh;
   width: 20vmax;
   max-width: 250px;
   /*  height: 30rem;*/
@@ -42,8 +41,15 @@ body {
 }
 
 @media screen and (max-width: 1000px) {
+  .hand {
+    width: 27vw;
+  }
+
   .indicator-pc {
     visibility: hidden;
+    max-width: 0px;
+    padding: 0px;
+    margin: 0px;
   }
 
   .indicator-mobile {
@@ -63,11 +69,50 @@ body {
   transition: 0.05s;
 }
 
+.scoreboard-content {
+  display: flex;
+  justify-items: center;
+  justify-content: center;
+  transition: all 1s;
+  animation: slide-down 0.4s ease;
+}
+
+.scoreboard-message {
+  min-width: 20vw;
+  padding: 10px;
+}
+
+.resulthand-left {
+  width: 100px;
+  justify-self: right;
+}
+
+.resulthand-right {
+  width: 100px;
+  justify-self: left;
+}
+
+@media screen and (max-width: 1000px) {
+  .scoreboard-message {
+    font-size: 25px;
+    min-width: 10vw;
+  }
+
+  .resulthand-left {
+    width: 50px;
+  }
+
+  .resulthand-right {
+    width: 50px;
+  }
+}
+
 .fadeout {
   position: fixed;
   bottom: 0;
-  width: 100%;
+  margin: 0px;
+  padding: 0px;
+  width: 100vw;
   background-image: linear-gradient(#fff3c400, #fff3c4ff, #fff3c4ff);
-
-  height: 50vh;
+  height: 30vh;
 }
