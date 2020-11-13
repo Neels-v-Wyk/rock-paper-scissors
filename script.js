@@ -94,15 +94,26 @@ function game(myHand) {
   // return [myScore, enemyScore];
 }
 
+function unpop(e) {
+  if (e.propertyName !== "transform") return;
+
+  this.classList.remove("pop");
+}
+
 var hands = document.querySelectorAll(".hand");
 
-hands.forEach((key) => {
-  key.addEventListener("click", (e) => {
+hands.forEach((hand) => {
+  hand.addEventListener("click", (e) => {
     game(e.target.alt);
     try {
       document.querySelector(".removeme").remove();
+
+      // add a little "pop" when you click it
+      hand.classList.add("pop");
     } catch (err) {}
   });
+
+  hand.addEventListener("transitionend", unpop);
 });
 
 // result = game();

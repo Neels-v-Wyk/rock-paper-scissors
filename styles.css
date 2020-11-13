@@ -41,3 +41,8 @@ body {
   overflow: hidden;
   background-color: linear-gradient(to bottom, transparent 0%, black 100%);
 }
+
+.pop {
+  transform: scale(1.25) !important;
+  transition: 0.05s;
+}
