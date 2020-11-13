@@ -97,6 +97,7 @@ function game(myHand) {
 function unpop(e) {
   if (e.propertyName !== "transform") return;
 
+  console.log(this);
   this.classList.remove("pop");
 }
 
@@ -105,12 +106,12 @@ var hands = document.querySelectorAll(".hand");
 hands.forEach((hand) => {
   hand.addEventListener("click", (e) => {
     game(e.target.alt);
-    try {
+    if (document.querySelector(".removeme")) {
       document.querySelector(".removeme").remove();
+    }
 
-      // add a little "pop" when you click it
-      hand.classList.add("pop");
-    } catch (err) {}
+    // add a little "pop" when you click it
+    hand.classList.add("pop");
   });
 
   hand.addEventListener("transitionend", unpop);
